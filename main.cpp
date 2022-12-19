@@ -1,95 +1,67 @@
-//
-// A simple server implementation showing how to:
-//  * serve static messages
-//  * read GET and POST parameters
-//  * handle missing pages / 404s
-//
-
+// semaphores.ino
+// Practical ESP32 Multitasking
+// Binary Semaphores
 #include <Arduino.h>
-#ifdef ESP32
-#include <WiFi.h>
-#include <AsyncTCP.h>
+#define LED1_GPIO 19
+#define LED2_GPIO 23
+#define bp 2
 
-#elif defined(ESP8266)
+static SemaphoreHandle_t hsem;
+void led_task(void *argp) {
+int led = (int)argp;
 
-#include <ESP8266WiFi.h>
-#include <ESPAsyncTCP.h>
+BaseType_t rc;
 
-#endif
+pinMode(led,OUTPUT);
+pinMode (bp , INPUT);
+digitalWrite(led,0);
 
-#include <ESPAsyncWebServer.h>
-#include <LittleFS.h>
-#include <ArduinoJson.h>
+for (;;) {
+// First gain control of hsem
+rc = xSemaphoreTake(hsem,portMAX_DELAY);
+assert(rc == pdPASS);
 
-AsyncWebServer server(80);
-AsyncWebSocket ws("/ws");
+for ( int x=0; x<6; ++x ) {
+digitalWrite(led,digitalRead(led)^1);
+delay(500);
+}
 
-const char* ssid = "Priamh";
-const char* password = "123123123";
-float humidity=5;
-float temperature=13;
-int LED;
-int BP;
-
-const char* PARAM_MESSAGE = "message";
-
-void notFound(AsyncWebServerRequest *request) {
-    request->send(404, "text/plain", "Not found");
+rc = xSemaphoreGive(hsem);
+assert(rc == pdPASS);
+}
 }
 
 void setup() {
+int app_cpu = xPortGetCoreID();
+BaseType_t rc; // Return code
 
+hsem = xSemaphoreCreateBinary();
+assert(hsem);
 
-  if(!LittleFS.begin(true)){
-    Serial.println("An Error has occurred while mounting LITTLEFS");
+rc = xTaskCreatePinnedToCore(
+led_task, // Function
+"led1task", // Task name
+3000, // Stack size
+(void*)LED1_GPIO, // arg
+1, // Priority
+nullptr, // No handle returned
+app_cpu); // CPU
+assert(rc == pdPASS);
+
+// Allow led1task to start first
+rc = xSemaphoreGive(hsem);
+assert(rc == pdPASS);
+rc = xTaskCreatePinnedToCore(
+led_task, // Function
+"led2task", // Task name
+3000, // Stack size
+(void*)LED2_GPIO, // argument
+1, // Priority
+nullptr, // No handle returned
+app_cpu); // CPU
+assert(rc == pdPASS);
 }
-    Serial.begin(9600);
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
-    if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        Serial.printf("WiFi Failed!\n");
-        return;
-    }
-
-    Serial.print("IP Address: ");
-    Serial.println(WiFi.localIP());
-
-
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(LittleFS, "/index.html","text/html", false); 
-    });
-        server.on("/function.js", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(LittleFS, "/function.js","text/js", false); 
-    });
-        server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(LittleFS, "/style.css","text/css", false); 
-    });
-
-    // Send a POST request to <IP>/post with a form field message set to <message>
-    server.on("/post", HTTP_POST, [](AsyncWebServerRequest *request){
-        String message;
-        if (request->hasParam(PARAM_MESSAGE, true)) {
-            message = request->getParam(PARAM_MESSAGE, true)->value();
-        } else {
-            message = "No message sent";
-        }
-        request->send(200, "text/plain", "Hello, POST: " + message);
-    });
-
-    server.onNotFound(notFound);
-
-    server.begin();
-}
-
+// Not used
 void loop() {
-    DynamicJsonDocument doc(256);
-  doc["LED"] =LED;
-  doc["BP"] =BP;
-  doc["HUMIDITY"] =humidity;
-  doc["TEMPERATURE"] =temperature;
- 
-  char json_string[256];
-  serializeJson(doc,json_string);
-  ws.textAll(json_string);
-
+vTaskDelete(nullptr);
 }
