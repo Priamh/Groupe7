@@ -1,0 +1,192 @@
+/************************ Adafruit IO Config *******************************/
+
+// visit io.adafruit.com if you need to create an account,
+// or if you need your Adafruit IO key.
+#define IO_USERNAME  "nqhthinh40"
+#define IO_KEY       "aio_guch37IDOUvVgfXzmRAcy1a1NGvs"
+
+/******************************* WIFI **************************************/
+
+// the AdafruitIO_WiFi client will work with the following boards:
+//   - HUZZAH ESP8266 Breakout -> https://www.adafruit.com/products/2471
+//   - Feather HUZZAH ESP8266 -> https://www.adafruit.com/products/2821
+//   - Feather HUZZAH ESP32 -> https://www.adafruit.com/product/3405
+//   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
+//   - Feather WICED -> https://www.adafruit.com/products/3056
+//   - Adafruit PyPortal -> https://www.adafruit.com/product/4116
+//   - Adafruit Metro M4 Express AirLift Lite ->
+//   https://www.adafruit.com/product/4000
+//   - Adafruit AirLift Breakout -> https://www.adafruit.com/product/4201
+//   - Adafruit AirLift Shield -> https://www.adafruit.com/product/4285
+//   - Adafruit AirLift FeatherWing -> https://www.adafruit.com/product/4264
+
+#define WIFI_SSID "SEXIESTLAPTOP 2806"
+#define WIFI_PASS "12345678"
+
+// uncomment the following line if you are using airlift
+// #define USE_AIRLIFT
+
+// uncomment the following line if you are using winc1500
+// #define USE_WINC1500
+
+// uncomment the following line if you are using mrk1010 or nano 33 iot
+//#define ARDUINO_SAMD_MKR1010
+
+// comment out the following lines if you are using fona or ethernet
+#include "AdafruitIO_WiFi.h"
+
+#if defined(USE_AIRLIFT) || defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) ||         \
+    defined(ADAFRUIT_PYPORTAL)
+// Configure the pins used for the ESP32 connection
+#if !defined(SPIWIFI_SS) // if the wifi definition isnt in the board variant
+// Don't change the names of these #define's! they match the variant ones
+#define SPIWIFI SPI
+#define SPIWIFI_SS 10 // Chip select pin
+#define NINA_ACK 9    // a.k.a BUSY or READY pin
+#define NINA_RESETN 6 // Reset pin
+#define NINA_GPIO0 -1 // Not connected
+#endif
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, SPIWIFI_SS,
+                   NINA_ACK, NINA_RESETN, NINA_GPIO0, &SPIWIFI);
+#else
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+#endif
+/******************************* FONA **************************************/
+
+// the AdafruitIO_FONA client will work with the following boards:
+//   - Feather 32u4 FONA -> https://www.adafruit.com/product/3027
+
+// uncomment the following two lines for 32u4 FONA,
+// and comment out the AdafruitIO_WiFi client in the WIFI section
+// #include "AdafruitIO_FONA.h"
+// AdafruitIO_FONA io(IO_USERNAME, IO_KEY);
+
+/**************************** ETHERNET ************************************/
+
+// the AdafruitIO_Ethernet client will work with the following boards:
+//   - Ethernet FeatherWing -> https://www.adafruit.com/products/3201
+
+// uncomment the following two lines for ethernet,
+// and comment out the AdafruitIO_WiFi client in the WIFI section
+// #include "AdafruitIO_Ethernet.h"
+// AdafruitIO_Ethernet io(IO_USERNAME, IO_KEY);
+/* Photocell simple testing sketch. 
+ 
+Connect one end of the photocell to 5V, the other end to Analog 0.
+Then connect one end of a 10K resistor from Analog 0 to ground
+ 
+For more information see http://learn.adafruit.com/photocells */
+
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <DHT_U.h>
+
+// pin connected to DH22 data line
+#define DATA_PIN 26
+
+// create DHT22 instance
+DHT_Unified dht(DATA_PIN, DHT11);
+
+//LDR 
+int photocellPin = 39;     // the cell and 10K pulldown are connected to a0
+int photocellReading;     // the analog reading from the analog resistor divider
+
+AdafruitIO_Feed *ldr = io.feed("ldr"); 
+// set up the 'temperature' and 'humidity' feeds
+AdafruitIO_Feed *temperature = io.feed("temperature");
+AdafruitIO_Feed *humidity = io.feed("humidity");
+
+#include "Adafruit_NeoPixel.h"
+
+#define PIXEL_PIN     0
+#define PIXEL_COUNT   1
+#define PIXEL_TYPE    NEO_GRB + NEO_KHZ800
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+
+// set up the 'color' feed
+AdafruitIO_Feed *color = io.feed("color");
+
+
+void setup(void) {
+  // We'll send debugging information via the Serial monitor
+  Serial.begin(9600); 
+ 
+
+  // wait for serial monitor to open
+  while(! Serial);
+
+  // initialize dht22
+  dht.begin();
+
+  io.connect();
+
+  // wait for a connection
+  while(io.status() < AIO_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+
+  // we are connected
+  Serial.println();
+  Serial.println(io.statusText());  
+}
+ 
+void loop(void) {
+ // io.run(); is required for all sketches.
+  // it should always be present at the top of your loop
+  // function. it keeps the client connected to
+  // io.adafruit.com, and processes any incoming data.
+  io.run();
+
+  sensors_event_t event;
+  dht.temperature().getEvent(&event);
+
+  float celsius = event.temperature;
+  float fahrenheit = (celsius * 1.8) + 32;
+
+  Serial.print("celsius: ");
+  Serial.print(celsius);
+  Serial.println("C");
+
+  Serial.print("fahrenheit: ");
+  Serial.print(fahrenheit);
+  Serial.println("F");
+
+  // save fahrenheit (or celsius) to Adafruit IO
+  temperature->save(fahrenheit);
+
+  dht.humidity().getEvent(&event);
+
+  Serial.print("humidity: ");
+  Serial.print(event.relative_humidity);
+  Serial.println("%");
+
+  // save humidity to Adafruit IO
+  humidity->save(event.relative_humidity);
+
+  // wait 5 seconds (5000 milliseconds == 5 seconds)
+  delay(2000);
+
+  photocellReading = analogRead(photocellPin);  
+ 
+  Serial.print("Analog reading = ");
+  Serial.print(photocellReading);     // the raw analog reading
+ 
+  // We'll have a few threshholds, qualitatively determined
+  if (photocellReading < 10) {
+    Serial.println(" - Dark");
+  } else if (photocellReading < 200) {
+    Serial.println(" - Dim");
+  } else if (photocellReading < 500) {
+    Serial.println(" - Light");
+  } else if (photocellReading < 800) {
+    Serial.println(" - Bright");
+  } else {
+    Serial.println(" - Very bright");
+  }
+  delay(2000);
+
+  Serial.println(photocellReading);
+  ldr->save(photocellReading);
+}
