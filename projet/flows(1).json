@@ -1,0 +1,961 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dc1ccdc5c6a867af",
+        "type": "mqtt-broker",
+        "name": "mqtt esp32",
+        "broker": "172.20.0.3",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1914780732f6818c",
+        "type": "database-config",
+        "name": "Firebase",
+        "authType": "anonymous"
+    },
+    {
+        "id": "4d5012d94dda5323",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "be9be1bace9dcba3",
+        "type": "ui_group",
+        "name": "Module",
+        "tab": "977b153965b1515c",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "58c92f4f8de51984",
+        "type": "ui_group",
+        "name": "Central",
+        "tab": "977b153965b1515c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d656a055343c6ccf",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "172.20.0.2",
+        "port": "3306",
+        "db": "db_nodered",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "b9bd2a2bdeec13e5",
+        "type": "blynk-iot-client",
+        "name": "blynk",
+        "path": "blynk.cloud",
+        "key": "xH31OcB8VAmuoy-bRY1tyOWeCWjrQXNT",
+        "tmpl": "TMPLoO4AwZs6",
+        "dbg_all": true,
+        "dbg_read": false,
+        "dbg_prop": false,
+        "dbg_sync": false,
+        "dbg_low": false,
+        "dbg_pins": "",
+        "multi_cmd": false,
+        "enabled": true
+    },
+    {
+        "id": "977b153965b1515c",
+        "type": "ui_tab",
+        "name": "Domothermo Viewer",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "be0a81880beb5666",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "esp32",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dc1ccdc5c6a867af",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "5194931cc49874ac"
+            ]
+        ]
+    },
+    {
+        "id": "5194931cc49874ac",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 1",
+        "func": "const msg1 = {\n    payload:\n        msg.payload.temperaturecentrale || 0,\n   \n};\nconst msg2 = {\n    payload: \n         msg.payload.humiditycentrale,\n    \n};\nconst msg3 = {\n    payload:\n        msg.payload.fancentral,\n\n};\nconst msg4 = {\n    payload:\n        msg.payload.fanmodule,\n\n};\nconst msg5 = {\n    payload:\n        msg.payload.langue,\n};\nconst msg6 = {\n    payload:\n        msg.payload.degres,\n};\n\nreturn[msg1, msg2,msg3,msg4,msg5,msg6]",
+        "outputs": 6,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "0734bee1b90be5c2",
+                "495d33b653888568"
+            ],
+            [
+                "88744a45972bb6f6",
+                "ac599f23849ed4e4"
+            ],
+            [
+                "983665f078adb34e",
+                "881f249b9948e9fa"
+            ],
+            [
+                "2c988b3660a26bc9",
+                "dcccbdfb47ed726a"
+            ],
+            [
+                "87e6e044e34ae924"
+            ],
+            [
+                "ccc38bb99763d188"
+            ]
+        ]
+    },
+    {
+        "id": "ac599f23849ed4e4",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "humidity",
+        "database": "1914780732f6818c",
+        "path": "humidity",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 760,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "495d33b653888568",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "temperature",
+        "database": "1914780732f6818c",
+        "path": "temp",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 770,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "0734bee1b90be5c2",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "58c92f4f8de51984",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 650,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "88744a45972bb6f6",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "58c92f4f8de51984",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidite",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 640,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b734f85cac0ce8b7",
+        "type": "firebase-in",
+        "z": "f6f2187d.f17ca8",
+        "name": "json out",
+        "database": "1914780732f6818c",
+        "outputType": "auto",
+        "path": "",
+        "x": 90,
+        "y": 740,
+        "wires": [
+            [
+                "059e468a832d1351",
+                "9f0bd27c4a374497",
+                "3a24e829986efff6",
+                "750633a7daa4e240"
+            ]
+        ]
+    },
+    {
+        "id": "af04f080215829e4",
+        "type": "mysql",
+        "z": "f6f2187d.f17ca8",
+        "mydb": "d656a055343c6ccf",
+        "name": "test",
+        "x": 470,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "059e468a832d1351",
+        "type": "template",
+        "z": "f6f2187d.f17ca8",
+        "name": "Query",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO `Domothermo`(`TemperatureCentrale`, `HumiditeCentrale`, `TemperatureModule`, `HumiditeModule`, `LuminositeModule`, `Langue`, `Degres`) VALUES (:temp, :humidity ,:temp2 ,:humidity2 ,:lumi ,:lang ,:degre )",
+        "output": "str",
+        "x": 290,
+        "y": 740,
+        "wires": [
+            [
+                "af04f080215829e4"
+            ]
+        ]
+    },
+    {
+        "id": "750633a7daa4e240",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "esp32OUT",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dc1ccdc5c6a867af",
+        "x": 310,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "00d178565a992cd2",
+        "type": "blynk-iot-out-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "1",
+        "pinmode": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 580,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "cd523059ce8d46e8",
+        "type": "blynk-iot-out-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "3",
+        "pinmode": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 580,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "9f0bd27c4a374497",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 2",
+        "func": "const msg1 = {\n    payload:\n        Number(msg.payload.temp) ,\n   \n};\nconst msg2 = {\n    payload: \n       Number( msg.payload.humidity),\n    \n};\nconst msg3 = {\n    payload:\n        Number(msg.payload.temp2),\n\n};\nconst msg4 = {\n    payload:\n        Number(msg.payload.humidity2),\n\n};\nconst msg5 = {\n    payload:\n        Number(msg.payload.lumi),\n\n};\nreturn[msg1, msg2,msg3,msg4,msg5]",
+        "outputs": 5,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 840,
+        "wires": [
+            [
+                "00d178565a992cd2"
+            ],
+            [
+                "cd523059ce8d46e8"
+            ],
+            [
+                "fe8e2742a0c7de6e"
+            ],
+            [
+                "308b10a375e76207"
+            ],
+            [
+                "e59e27f297f20318"
+            ]
+        ]
+    },
+    {
+        "id": "983665f078adb34e",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "fancentral",
+        "database": "1914780732f6818c",
+        "path": "fan",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 760,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2c988b3660a26bc9",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "fanmodule",
+        "database": "1914780732f6818c",
+        "path": "fan2",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 770,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "87e6e044e34ae924",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "lang",
+        "database": "1914780732f6818c",
+        "path": "lang",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 750,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "ccc38bb99763d188",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "degres",
+        "database": "1914780732f6818c",
+        "path": "degre",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 750,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "52ce34ad1f23614b",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "esp32mod",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dc1ccdc5c6a867af",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 80,
+        "y": 460,
+        "wires": [
+            [
+                "f9db361dc0dbf8d9"
+            ]
+        ]
+    },
+    {
+        "id": "f9db361dc0dbf8d9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 4",
+        "func": "const msg1 = {\n    payload:\n        msg.payload.temperaturemodule || 0,\n   \n};\nconst msg2 = {\n    payload: \n         msg.payload.humiditymodule,\n    \n};\nconst msg3 = {\n    payload:\n        msg.payload.luminosite,\n\n};\n\n\nreturn[msg1, msg2,msg3]",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 235,
+        "y": 456,
+        "wires": [
+            [
+                "244873dd1bac115d",
+                "087c70c08b19665a"
+            ],
+            [
+                "41d22722b57548c3",
+                "61b304ad9279feb0"
+            ],
+            [
+                "7fb70d01774d246f",
+                "aa8ff029896557fc"
+            ]
+        ]
+    },
+    {
+        "id": "244873dd1bac115d",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "temperaturemodule",
+        "database": "1914780732f6818c",
+        "path": "temp2",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 465,
+        "y": 416,
+        "wires": []
+    },
+    {
+        "id": "41d22722b57548c3",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "humiditymodule",
+        "database": "1914780732f6818c",
+        "path": "humidity2",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 460,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "7fb70d01774d246f",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "luminosite",
+        "database": "1914780732f6818c",
+        "path": "lumi",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 440,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3a24e829986efff6",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "esp32OUT2",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dc1ccdc5c6a867af",
+        "x": 296,
+        "y": 698,
+        "wires": []
+    },
+    {
+        "id": "fe8e2742a0c7de6e",
+        "type": "blynk-iot-out-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "2",
+        "pinmode": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 580,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "308b10a375e76207",
+        "type": "blynk-iot-out-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "4",
+        "pinmode": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 580,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "e59e27f297f20318",
+        "type": "blynk-iot-out-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "5",
+        "pinmode": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 580,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "61b304ad9279feb0",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "be9be1bace9dcba3",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidite",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 440,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "087c70c08b19665a",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "be9be1bace9dcba3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 450,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "aa8ff029896557fc",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "be9be1bace9dcba3",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Luminosite",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 450,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "bea8ad3afda9a5b2",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "rgb rouge centrale",
+        "database": "1914780732f6818c",
+        "path": "rouge",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 490,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "3d29788f0c8ad4da",
+        "type": "blynk-iot-in-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "6",
+        "pin_all": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 190,
+        "y": 1180,
+        "wires": [
+            [
+                "bea8ad3afda9a5b2"
+            ]
+        ]
+    },
+    {
+        "id": "c5d5eed4af355801",
+        "type": "blynk-iot-in-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "7",
+        "pin_all": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 190,
+        "y": 1240,
+        "wires": [
+            [
+                "3720708576582409"
+            ]
+        ]
+    },
+    {
+        "id": "3720708576582409",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "rgb vert centrale",
+        "database": "1914780732f6818c",
+        "path": "vert",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 480,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "c217f12ff89f6733",
+        "type": "blynk-iot-in-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "8",
+        "pin_all": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 190,
+        "y": 1300,
+        "wires": [
+            [
+                "49f97e0d2129040f"
+            ]
+        ]
+    },
+    {
+        "id": "49f97e0d2129040f",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "rgb bleu centrale",
+        "database": "1914780732f6818c",
+        "path": "bleu",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 490,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "073863f93212808d",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "rgb rouge module",
+        "database": "1914780732f6818c",
+        "path": "rouge2",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 490,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "acda9f539add90f5",
+        "type": "blynk-iot-in-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "9",
+        "pin_all": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 190,
+        "y": 1380,
+        "wires": [
+            [
+                "073863f93212808d"
+            ]
+        ]
+    },
+    {
+        "id": "84abd5ac87f9b3e0",
+        "type": "blynk-iot-in-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "10",
+        "pin_all": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 200,
+        "y": 1440,
+        "wires": [
+            [
+                "c073f69bf0c1b8fe"
+            ]
+        ]
+    },
+    {
+        "id": "c073f69bf0c1b8fe",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "rgb vert module",
+        "database": "1914780732f6818c",
+        "path": "vert2",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 480,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "fa84c299e92b23cb",
+        "type": "blynk-iot-in-write",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pin": "11",
+        "pin_all": 0,
+        "client": "b9bd2a2bdeec13e5",
+        "x": 200,
+        "y": 1500,
+        "wires": [
+            [
+                "8ad4d43e60fa7eb6"
+            ]
+        ]
+    },
+    {
+        "id": "8ad4d43e60fa7eb6",
+        "type": "firebase-out",
+        "z": "f6f2187d.f17ca8",
+        "name": "rgb bleu module",
+        "database": "1914780732f6818c",
+        "path": "bleu2",
+        "pathType": "str",
+        "queryType": "set",
+        "x": 480,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "dcccbdfb47ed726a",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "be9be1bace9dcba3",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Vitesse ventilateur",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 590,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "881f249b9948e9fa",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "58c92f4f8de51984",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Vitesse ventilateur",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 610,
+        "y": 100,
+        "wires": []
+    }
+]
